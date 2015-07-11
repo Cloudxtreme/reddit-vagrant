@@ -101,6 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # For more information please check http://docs.vagrantup.com/v2/synced-folders/basic_usage.html
   end
 
+  config.vm.provision "shell", inline: "mkdir -p /host/src && chown vagrant: /host/src"
   user_config[:local].each do |key, value|
     if value
       config.vm.synced_folder value, '/host-raw/src/'+key, type: user_config[:nfs] && 'nfs' || user_config[:smb] && 'smb' || nil, mount_options:user_config[:nfs] && ['rw', 'vers=3', 'tcp', 'nolock'] || nil
