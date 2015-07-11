@@ -13,8 +13,15 @@ export REDDIT_HOME="/host"
 export REDDIT_PLUGINS=$1
 export REDDIT_DOMAIN=$3
 
+# Find installer
+installer=$REDDIT_HOME/src/reddit/install-reddit.sh
+if [ ! -f $installer ]; then
+    installer=$HOME/install-reddit.sh
+    wget -O $installer https://raw.githubusercontent.com/reddit/reddit/master/install-reddit.sh
+fi
+
 # Install reddit and all its dependencies.
-. $REDDIT_HOME/src/reddit/install-reddit.sh
+. $installer
 
 if [ $2 ]; then
   $init_ctl emit reddit-stop
