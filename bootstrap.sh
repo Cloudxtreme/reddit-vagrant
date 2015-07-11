@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 apt_get=/usr/bin/apt-get
 ln=/bin/ln
 wget=/usr/bin/wget
