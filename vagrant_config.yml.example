@@ -17,7 +17,7 @@
 # Expose the VM's port 80 on a specified port. May be set to false to disable.
 :forward_port: 8001
 
-# Where, or if, the required repositories are located.
+# Where, or if, the required source repositories are located.
 # If any of these are set to false, they will be cloned
 # inside of the environment instead of mounted from outside.
 :local: {

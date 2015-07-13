@@ -4,7 +4,8 @@ reddit-vagrant
 This is a vagrant setup for reddit.
 
 To begin, install vagrant for your platform. https://www.vagrantup.com/downloads.html If you are
-on linux, odds are you can just use your package manager to install vagrant.
+on linux, odds are you can just use your package manager to install vagrant. Make sure you're not
+using [Vagrant 1.7.3](https://github.com/mitchellh/vagrant/issues/5934).
 
 Usage
 -----
