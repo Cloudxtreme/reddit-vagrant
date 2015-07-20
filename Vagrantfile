@@ -10,7 +10,7 @@ end
 # Minimum memory requirement is 2gb. Doubling to 4gb for safety.
 user_config = {
   private_ip: "192.168.150.2",
-  box: "hashicorp/precise64",
+  box: "ubuntu/precise64",
   box_url: nil,
   forward_port: 8001,
   memory: 4096,
@@ -43,9 +43,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   if user_config[:dhcp]
-    config.vm.network "private_network", type: 'dhcp'
+    config.vm.network "private_network", type: 'dhcp', :libvirt__network_name => "default"
   else
-    config.vm.network "private_network", ip: user_config[:private_ip]
+    config.vm.network "private_network", ip: user_config[:private_ip], :libvirt__network_name => "default"
   end
   config.vm.hostname = user_config[:hostname]
   # Create a forwarded port mapping which allows access to a specific port
@@ -72,14 +72,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
   end
 
-  config.vm.provider "kvm" do |kvm|
-    kvm.core_number = user_config[:cpu]
-    kvm.memory_size = user_config[:memory].to_s+"m"
-  end
-
   config.vm.provider "vmware_fusion" do |v|
     v.vmx["numvcpus"] = user_config[:cpu]
     v.vmx["memsize"] = user_config[:memory]
+  end
+
+  config.vm.provider "libvirt" do |libvirt|
+    libvirt.driver = "kvm"
+    libvirt.connect_via_ssh = false
+    libvirt.memory = user_config[:memory]
+    libvirt.cpus = user_config[:cpu]
+    libvirt.nested = true
+    libvirt.username = "root"
+    libvirt.volume_cache = "writethrough"
+    libvirt.storage_pool_name = "default"
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")

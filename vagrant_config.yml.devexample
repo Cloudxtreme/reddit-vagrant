@@ -1,9 +1,6 @@
 # Specify which vagrant box to use.
-# VBox
-:box: "hashicorp/precise64"
-# KVM
-#:box: "KVM/precise64"
-#:box_url: "https://vagrant-kvm-boxes.s3.amazonaws.com/precise64-kvm.box"
+# VBox/libvirt
+:box: "ubuntu/precise64"
 #VMWare
 #:box: "spantree/ubuntu-precise-64"
 
