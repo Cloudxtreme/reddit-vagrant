@@ -5,7 +5,8 @@ This is a vagrant setup for reddit.
 
 To begin, install vagrant for your platform. https://www.vagrantup.com/downloads.html If you are
 on linux, odds are you can just use your package manager to install vagrant. Make sure you're not
-using [Vagrant 1.7.3](https://github.com/mitchellh/vagrant/issues/5934).
+using [Vagrant 1.7.3](https://github.com/mitchellh/vagrant/issues/5934). Vagrant 1.7.4 and
+virtualbox 5.0 are currently recommended for first time users.
 
 Usage
 -----
@@ -31,9 +32,11 @@ Afterwards, visit http://reddit.local and enjoy your fresh new local reddit inst
       appropriate folders are in their proper places. Further documentation in vagrant_config.yml
 * Install vagrant (Get the latest from https://www.vagrantup.com/downloads.html)
 * Install vagrant-bindfs `vagrant plugin install vagrant-bindfs`
-* Install your preferred vmware provider(VirtualBox, KVM, and VMWare are supported)
+* Install your preferred vmware provider(VirtualBox, libvirt, and VMWare are supported)
   * VirtualBox - works out of the box, install VirtualBox on your host machine.
-  * KVM - `vagrant plugin install vagrant-kvm` (you'll also need libvirt-dev on your host).
+  * libvirt - `vagrant plugin install vagrant-libvirt` (you'll also need libvirt-dev on your host).
+    You will also need to use vagrant-mutate to convert the ubuntu/precise64 image to libvirt.
+    `vagrant box add ubuntu/precise64 && vagrant mutate ubuntu/precise64 libvirt`
   * VMWare - `vagrant plugin install vagrant-vmware-fusion` (you'll also need vmware-fusion)
   * NOTE - You will also need to choose the appropriate box for a particular provider in your
     vagrant_config.yml. VirtualBox is default
@@ -80,9 +83,6 @@ If vagrant up terminates relatively quickly, shows
 run the command `VBoxManage dhcpserver remove --netname HostInterfaceNetworking-vboxnet0`
 and try again. This happens because of a bug in the vagrant-virtualbox plugin. It does not
 check to see if an existing dhcp server is set up before creating a new one.
-
-If you are using KVM, the most recent version has a bug in it that breaks private networks.
-Please uninstall vagrant-kvm and reinstall it with the --plugin-version=0.1.7 switch.
 
 First, try to `git clean -f -d` each of your local source trees. The build process is messy.
 Then, try a `vagrant provision` if the install script didn't complete. If that doesn't fix
