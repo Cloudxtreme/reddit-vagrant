@@ -10,7 +10,7 @@ end
 # Minimum memory requirement is 2gb. Doubling to 4gb for safety.
 user_config = {
   private_ip: "192.168.150.2",
-  box: "ubuntu/precise64",
+  box: "ubuntu/trusty64",
   box_url: nil,
   forward_port: 8001,
   memory: 4096,

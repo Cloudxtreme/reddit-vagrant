@@ -35,8 +35,8 @@ Afterwards, visit http://reddit.local and enjoy your fresh new local reddit inst
 * Install your preferred vmware provider(VirtualBox, libvirt, and VMWare are supported)
   * VirtualBox - works out of the box, install VirtualBox on your host machine.
   * libvirt - `vagrant plugin install vagrant-libvirt` (you'll also need libvirt-dev on your host).
-    You will also need to use vagrant-mutate to convert the ubuntu/precise64 image to libvirt.
-    `vagrant box add ubuntu/precise64 && vagrant mutate ubuntu/precise64 libvirt`
+    You will also need to use vagrant-mutate to convert the ubuntu/trusty64 image to libvirt.
+    `vagrant box add ubuntu/trusty64 && vagrant mutate ubuntu/trusty64 libvirt`
   * VMWare - `vagrant plugin install vagrant-vmware-fusion` (you'll also need vmware-fusion)
   * NOTE - You will also need to choose the appropriate box for a particular provider in your
     vagrant_config.yml. VirtualBox is default
